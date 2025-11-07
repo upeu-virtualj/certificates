@@ -5,16 +5,16 @@
       class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
     >
       <div
-        class="relative bg-white rounded-2xl shadow-2xl p-5 w-full max-w-md text-gray-800 transform transition-all duration-300 border border-blue-100 hover:border-blue-300 hover:shadow-blue-100/70"
+        class="relative bg-white rounded-2xl shadow-2xl p-4 w-full max-w-md text-gray-800 transform transition-all duration-300 border border-blue-100 hover:border-blue-300 hover:shadow-blue-100/70"
       >
         <!-- ❌ Botón de cerrar -->
         <button
           @click="$emit('close')"
-          class="absolute -top-3 -left-3 w-7 h-7 flex items-center justify-center rounded-full bg-blue-500 text-white shadow-md hover:shadow-lg hover:bg-blue-600 transition-all duration-300 hover:rotate-90 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          class="absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center rounded-full bg-blue-500 text-white shadow-md hover:shadow-lg hover:bg-blue-600 transition-all duration-300 hover:rotate-90 focus:outline-none focus:ring-2 focus:ring-blue-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-4 h-4"
+            class="w-3.5 h-3.5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -30,7 +30,6 @@
 
         <h2 class="text-xl font-bold mb-3 text-center text-gray-800">Resultados</h2>
 
-        <!-- 👤 Nombre del participante -->
         <p
           v-if="certificados.length"
           class="text-center text-base font-semibold bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-400 bg-clip-text text-transparent mb-4 leading-snug tracking-wide"
@@ -38,7 +37,6 @@
           {{ certificados[0].full_names }}
         </p>
 
-        <!-- 🔍 Campo de búsqueda -->
         <div class="mb-3">
           <input
             v-model="searchTerm"
@@ -48,7 +46,6 @@
           />
         </div>
 
-        <!-- 📋 Lista paginada -->
         <div v-if="paginatedCertificados.length">
           <ul class="space-y-2">
             <li
@@ -61,7 +58,6 @@
               <p><strong>Fecha:</strong> {{ cert.date }}</p>
               <p><strong>Participación:</strong> {{ cert.type }}</p>
 
-              <!-- 🏅 Botón “Ver certificado” actualizado -->
               <div class="flex items-center justify-between mt-3">
                 <strong class="text-gray-700">Ver certificado:</strong>
                 <a
@@ -78,7 +74,6 @@
             </li>
           </ul>
 
-          <!-- 📄 Controles de paginación -->
           <div class="flex justify-end items-center gap-2 mt-4 text-xs">
             <button
               @click="prevPage"
@@ -106,7 +101,6 @@
           No se encontraron resultados
         </div>
 
-        <!-- 🔘 Botón cerrar -->
         <div class="mt-5 text-center">
           <button
             @click="$emit('close')"
