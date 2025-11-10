@@ -151,7 +151,7 @@ const buscarCertificados = async () => {
         Asuntos Académicos
       </span>
       <span class="text-white/40 text-xs ml-1">
-        © {{ new Date().getFullYear() }}
+        © UPeU {{ new Date().getFullYear() }}
       </span>
     </footer>
   </section>
