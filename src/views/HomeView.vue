@@ -3,7 +3,7 @@ import { ref, getCurrentInstance, watch } from "vue";
 import { getCertificatesByInput } from "@/services/sheets";
 import ModalCertificates from "@/components/ModalCertificates.vue";
 import { Award } from "lucide-vue-next";
-import upeuFondo from "@/assets/images/upeu-fondo.png"; // 🔹 Imagen sin fondo (local)
+import upeuFondo from "@/assets/images/upeu-fondo.png";
 
 const dni = ref("");
 const certificados = ref([]);
@@ -12,12 +12,12 @@ const showModal = ref(false);
 const { appContext } = getCurrentInstance();
 const toastr = appContext.config.globalProperties.$toastr;
 
-// 🔹 Limpiar input
+// Limpiar input
 const clearInput = () => {
   dni.value = "";
 };
 
-// 🔹 Validar caracteres
+// Validar caracteres
 watch(dni, (newValue) => {
   if (!newValue) return;
   if (!/^[a-zA-Z0-9]*$/.test(newValue)) {
@@ -26,7 +26,7 @@ watch(dni, (newValue) => {
   }
 });
 
-// 🔹 Buscar certificados
+// Buscar certificados
 const buscarCertificados = async () => {
   if (!dni.value) {
     toastr.warning("Por favor, ingrese su DNI o Código de estudiante");
@@ -49,18 +49,16 @@ const buscarCertificados = async () => {
 </script>
 
 <template>
-  <!-- 🌌 Sección principal -->
   <section
     class="relative flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-700 via-indigo-700 to-purple-800 text-white text-center overflow-hidden"
   >
-    <!-- 🔹 Imagen de fondo decorativa -->
+    <!-- Fondo -->
     <div
       class="absolute inset-0 flex items-center justify-center opacity-40 pointer-events-none select-none animate-float"
     >
       <img :src="upeuFondo" alt="Fondo UPeU" class="fondo-animado" />
     </div>
 
-    <!-- 🔹 Capa difusa -->
     <div
       class="absolute inset-0 bg-gradient-to-tr from-indigo-900/40 via-purple-800/40 to-blue-700/50 backdrop-blur-[3px]"
     ></div>
@@ -91,7 +89,7 @@ const buscarCertificados = async () => {
         </span>
       </p>
 
-      <!-- 🔹 Input y botón -->
+      <!-- Input y botón -->
       <div class="flex w-full justify-center">
         <div class="relative flex-1 max-w-sm">
           <input
@@ -139,6 +137,23 @@ const buscarCertificados = async () => {
         </button>
       </div>
     </div>
+
+    <!-- ⚡ Footer ultra limpio con efecto glow -->
+    <footer
+      class="fixed bottom-4 left-6 z-50 flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:bg-white/10 transition-all duration-500 group animate-slide-up"
+    >
+      <span class="text-white/70 text-sm font-light tracking-wide">
+        Powered by
+      </span>
+      <span
+        class="font-semibold text-sm bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500 bg-clip-text text-transparent animate-shimmer group-hover:drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]"
+      >
+        Asuntos Académicos
+      </span>
+      <span class="text-white/40 text-xs ml-1">
+        © {{ new Date().getFullYear() }}
+      </span>
+    </footer>
   </section>
 
   <ModalCertificates
@@ -153,7 +168,7 @@ const buscarCertificados = async () => {
   margin-bottom: 6px !important;
 }
 
-/* ✨ Imagen de fondo adaptativa y más grande */
+/* Imagen fondo */
 .fondo-animado {
   max-width: 600px;
   width: 80%;
@@ -163,7 +178,6 @@ const buscarCertificados = async () => {
   transition: all 0.6s ease-in-out;
 }
 
-/* 📱 Ajustes para pantallas pequeñas */
 @media (max-width: 640px) {
   .fondo-animado {
     max-width: 90%;
@@ -171,8 +185,6 @@ const buscarCertificados = async () => {
     transform: scale(1.1);
   }
 }
-
-/* 💻 Ajustes para pantallas grandes */
 @media (min-width: 1024px) {
   .fondo-animado {
     max-width: 750px;
@@ -180,7 +192,7 @@ const buscarCertificados = async () => {
   }
 }
 
-/* ✨ Animaciones */
+/* Animaciones */
 @keyframes fade-in-up {
   0% {
     opacity: 0;
@@ -214,8 +226,7 @@ const buscarCertificados = async () => {
 }
 
 @keyframes float {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0px) scale(1.05);
   }
   50% {
@@ -224,5 +235,32 @@ const buscarCertificados = async () => {
 }
 .animate-float {
   animation: float 8s ease-in-out infinite;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out both;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
 }
 </style>
