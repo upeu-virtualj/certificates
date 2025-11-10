@@ -2,9 +2,8 @@
 import { ref, getCurrentInstance, watch } from "vue";
 import { getCertificatesByInput } from "@/services/sheets";
 import ModalCertificates from "@/components/ModalCertificates.vue";
-
-// 🔹 Ícono de certificado
 import { Award } from "lucide-vue-next";
+import upeuFondo from "@/assets/images/upeu-fondo.png"; // 🔹 Imagen sin fondo (local)
 
 const dni = ref("");
 const certificados = ref([]);
@@ -21,7 +20,6 @@ const clearInput = () => {
 // 🔹 Validar caracteres
 watch(dni, (newValue) => {
   if (!newValue) return;
-
   if (!/^[a-zA-Z0-9]*$/.test(newValue)) {
     toastr.info("Por favor, ingrese un DNI o Código válido (sin símbolos)");
     dni.value = newValue.replace(/[^a-zA-Z0-9]/g, "");
@@ -51,33 +49,49 @@ const buscarCertificados = async () => {
 </script>
 
 <template>
+  <!-- 🌌 Sección principal -->
   <section
-    class="flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 text-white px-6 text-center overflow-hidden"
+    class="relative flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-700 via-indigo-700 to-purple-800 text-white text-center overflow-hidden"
   >
+    <!-- 🔹 Imagen de fondo decorativa -->
     <div
-      class="max-w-lg w-full flex flex-col items-center justify-center space-y-6 animate-fade-in-up"
+      class="absolute inset-0 flex items-center justify-center opacity-40 pointer-events-none select-none animate-float"
     >
-      <h1 class="text-6xl font-extrabold drop-shadow-lg animate-pulse">Certificados</h1>
+      <img :src="upeuFondo" alt="Fondo UPeU" class="fondo-animado" />
+    </div>
 
-      <!-- 🔹 Texto + Ícono con efectos -->
-      <p class="text-lg text-white/90 flex items-center justify-center gap-3">
+    <!-- 🔹 Capa difusa -->
+    <div
+      class="absolute inset-0 bg-gradient-to-tr from-indigo-900/40 via-purple-800/40 to-blue-700/50 backdrop-blur-[3px]"
+    ></div>
+
+    <!-- Contenido -->
+    <div
+      class="relative z-10 max-w-lg w-full flex flex-col items-center justify-center space-y-6 animate-fade-in-up px-4"
+    >
+      <h1
+        class="text-6xl font-extrabold drop-shadow-[0_0_12px_rgba(255,255,255,0.6)] animate-pulse"
+      >
+        Certificados
+      </h1>
+
+      <p
+        class="text-lg text-white/90 flex items-center justify-center gap-3 drop-shadow-[0_0_8px_rgba(0,0,0,0.4)]"
+      >
         Ingrese DNI o Código para validar tus certificados
         <span
           class="relative inline-flex items-center justify-center w-8 h-8 rounded-full"
         >
-          <!-- Glow animado detrás -->
           <span
             class="absolute inset-0 bg-gradient-to-tr from-yellow-400 via-amber-300 to-yellow-500 rounded-full blur-md opacity-80 animate-pulse"
           ></span>
-
-          <!-- Ícono principal -->
           <Award
-            class="relative w-6 h-6 text-yellow-300 drop-shadow-[0_0_6px_rgba(255,215,0,0.7)] transition-transform duration-500 ease-in-out hover:rotate-12 hover:scale-125 animate-glow"
+            class="relative w-6 h-6 text-yellow-300 drop-shadow-[0_0_8px_rgba(255,215,0,0.7)] transition-transform duration-500 ease-in-out hover:rotate-12 hover:scale-125 animate-glow"
           />
         </span>
       </p>
 
-      <!-- Input con botón -->
+      <!-- 🔹 Input y botón -->
       <div class="flex w-full justify-center">
         <div class="relative flex-1 max-w-sm">
           <input
@@ -86,8 +100,6 @@ const buscarCertificados = async () => {
             placeholder="Ingrese su DNI o Código"
             class="w-full px-4 py-3 rounded-l-xl border border-transparent text-gray-800 pr-10 bg-white/90 backdrop-blur-sm shadow-sm hover:border-yellow-400 focus:border-yellow-400 focus:outline-none focus:ring-0 transition-all duration-300 ease-out"
           />
-
-          <!-- Botón limpiar -->
           <button
             v-if="dni"
             @click="clearInput"
@@ -96,8 +108,6 @@ const buscarCertificados = async () => {
             ✕
           </button>
         </div>
-
-        <!-- Botón buscar -->
         <button
           @click="buscarCertificados"
           class="bg-yellow-400 text-white px-4 py-3 rounded-r-xl flex items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
@@ -131,7 +141,6 @@ const buscarCertificados = async () => {
     </div>
   </section>
 
-  <!-- Modal -->
   <ModalCertificates
     :visible="showModal"
     :certificados="certificados"
@@ -144,7 +153,34 @@ const buscarCertificados = async () => {
   margin-bottom: 6px !important;
 }
 
-/* Animación de entrada */
+/* ✨ Imagen de fondo adaptativa y más grande */
+.fondo-animado {
+  max-width: 600px;
+  width: 80%;
+  height: auto;
+  drop-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+  filter: hue-rotate(10deg);
+  transition: all 0.6s ease-in-out;
+}
+
+/* 📱 Ajustes para pantallas pequeñas */
+@media (max-width: 640px) {
+  .fondo-animado {
+    max-width: 90%;
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+/* 💻 Ajustes para pantallas grandes */
+@media (min-width: 1024px) {
+  .fondo-animado {
+    max-width: 750px;
+    transform: scale(1.15);
+  }
+}
+
+/* ✨ Animaciones */
 @keyframes fade-in-up {
   0% {
     opacity: 0;
@@ -155,28 +191,38 @@ const buscarCertificados = async () => {
     transform: translateY(0);
   }
 }
-
 .animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out both;
+  animation: fade-in-up 0.9s ease-out both;
 }
 
-/* ✨ Animación de brillo continuo */
 @keyframes glow {
   0% {
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5))
       drop-shadow(0 0 10px rgba(255, 215, 0, 0.2));
   }
   50% {
-    filter: drop-shadow(0 0 12px rgba(255, 235, 59, 0.9))
-      drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    filter: drop-shadow(0 0 14px rgba(255, 235, 59, 1))
+      drop-shadow(0 0 24px rgba(255, 215, 0, 0.7));
   }
   100% {
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5))
       drop-shadow(0 0 10px rgba(255, 215, 0, 0.2));
   }
 }
-
 .animate-glow {
-  animation: glow 2s infinite ease-in-out;
+  animation: glow 2.5s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.08);
+  }
+}
+.animate-float {
+  animation: float 8s ease-in-out infinite;
 }
 </style>
