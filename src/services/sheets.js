@@ -3,7 +3,7 @@ import axios from "axios";
 
 // URL pública de tu hoja de Google Sheets
 const SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJc6NfubqnGFtVZlsS6EbHCSPi63UPc43Pni5BmTLZU6DJa2dGyi0rlsxD8HAHVFRBwRQM4TEnC_fj/pub?output=csv";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCq56Kjk1napEPUS3jkZmNXeKTerplZuffqD8K01HiPI9-ewNGzBbfqcUQcyULttYwyRYt664o2bp0/pub?output=csv";
 
 export const getCertificatesByInput = async (input) => {
   try {

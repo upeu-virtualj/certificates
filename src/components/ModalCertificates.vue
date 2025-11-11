@@ -56,6 +56,7 @@
               <p><strong>Código:</strong> {{ cert.certificate_code }}</p>
               <p><strong>Evento:</strong> {{ cert.event }}</p>
               <p><strong>Fecha:</strong> {{ cert.date }}</p>
+
               <p>
                 <strong>Participación:&nbsp;</strong>
                 <span
@@ -76,20 +77,38 @@
 
               <div class="flex items-center justify-between mt-3">
                 <strong class="text-gray-700">Certificado:</strong>
-                <a
-                  :href="cert.url"
-                  target="_blank"
-                  class="group flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 hover:from-yellow-500 hover:to-amber-600 transition-all duration-300"
-                >
-                  <Award
-                    class="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-6"
-                  />
-                  <span class="tracking-wide">Ver</span>
-                </a>
+
+                <div class="flex items-center gap-2">
+                  <!-- Botón Ver -->
+                  <a
+                    :href="cert.url_view"
+                    target="_blank"
+                    class="group flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 hover:from-yellow-500 hover:to-amber-600 transition-all duration-300"
+                  >
+                    <Award
+                      class="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-6"
+                    />
+                    <span class="tracking-wide">Ver</span>
+                  </a>
+
+                  <!-- Botón Descargar -->
+                  <a
+                    :href="cert.url_dowload"
+                    target="_blank"
+                    download
+                    class="group flex items-center gap-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 hover:from-indigo-500 hover:to-blue-700 transition-all duration-300"
+                  >
+                    <Download
+                      class="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-6"
+                    />
+                    <span class="tracking-wide">Descargar</span>
+                  </a>
+                </div>
               </div>
             </li>
           </ul>
 
+          <!-- Paginación -->
           <div class="flex justify-end items-center gap-2 mt-4 text-xs">
             <button
               @click="prevPage"
@@ -132,7 +151,7 @@
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import { ChevronLeft, ChevronRight, Award } from "lucide-vue-next";
+import { ChevronLeft, ChevronRight, Award, Download } from "lucide-vue-next";
 
 const props = defineProps({
   visible: Boolean,
